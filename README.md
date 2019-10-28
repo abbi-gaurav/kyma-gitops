@@ -19,7 +19,17 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     --set helmOperator.create=true \
     --set helmOperator.createCRD=false \
     --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
-    --set git.path=resources
+    --set git.path=resources \
     --namespace flux \
     fluxcd/flux --tls
     ```
+
+* Give write access for repository.
+
+  * Run command
+  
+    ```shell
+    fluxctl identity --k8s-fwd-ns flux
+    ```
+  
+  * In the repository, go to Setting > Deploy keys, click on Add deploy key, give it a Title, check Allow write access, paste the Flux public key and click Add key.

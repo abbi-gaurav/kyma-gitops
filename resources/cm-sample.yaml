@@ -1,6 +1,7 @@
 apiVersion: v1
 data:
   x: "y"
+  a: "b"
 kind: ConfigMap
 metadata:
   creationTimestamp: null
