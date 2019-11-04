@@ -1,6 +1,6 @@
 # Overview
 
-Explore Gitops for developers building stuff on [project "kyma"](https://kyma-project.io).
+Explore Gitops for developers building stuff on [project "kyma"](https://kyma-project.io) using a pull based approach. The approach is based on the [open source project flux](https://www.weave.works/oss/flux/).
 
 ## Setup
 
@@ -20,6 +20,7 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     --set helmOperator.createCRD=false \
     --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
     --set git.path=resources \
+    --set git.pollInterval=2m \
     --namespace flux \
     fluxcd/flux --tls
     ```
@@ -33,3 +34,7 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     ```
   
   * In the repository, go to Setting > Deploy keys, click on Add deploy key, give it a Title, check Allow write access, paste the Flux public key and click Add key.
+
+## Various flows
+
+* [Lambda deployment](code/lambdas/README.md)

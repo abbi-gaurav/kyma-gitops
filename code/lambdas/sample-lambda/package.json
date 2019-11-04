@@ -1,0 +1,11 @@
+{
+    "name": "sample-lambda",
+    "main": "sample-lambda.js",
+    "license": "Unlicense",
+    "dependencies": {
+      "yaml": "^1.7.2"
+    },
+    "devDependencies": {
+      "gulp": "^4.0.2"
+    }
+  }
