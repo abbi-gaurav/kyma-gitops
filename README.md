@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/abbi-gaurav/kyma-gitops.svg?style=svg)](https://circleci.com/gh/abbi-gaurav/kyma-gitops)
+
 # Overview
 
 Explore Gitops for developers building stuff on [project "kyma"](https://kyma-project.io) using a pull based approach. The approach is based on the [open source project flux](https://www.weave.works/oss/flux/).
