@@ -2,6 +2,12 @@
 
 Explore Gitops for developers building stuff on [project "kyma"](https://kyma-project.io) using a pull based approach. The approach is based on the [open source project flux](https://www.weave.works/oss/flux/).
 
+## Prerequisites
+
+* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) CLI referncing to the Kubernetes cluster on which Kyma has been installed.
+* Install [Helm](https://helm.sh/)
+* [Add certificates to Helm Home](https://kyma-project.io/docs/components/security/#details-tls-in-tiller-add-certificates-to-helm-home)
+
 ## Setup
 
 * Create `flux` namespace
@@ -14,9 +20,8 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
 
     ```shell
     helm repo add fluxcd https://charts.fluxcd.io
-    kubectl apply -f https://raw.githubusercontent.com/fluxcd/flux/helm-0.10.1/deploy-helm/flux-helm-release-crd.yaml
     helm upgrade -i flux \
-    --set helmOperator.create=true \
+    --set helmOperator.create=false \
     --set helmOperator.createCRD=false \
     --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
     --set git.path=resources \
