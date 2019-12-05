@@ -13,7 +13,7 @@ import (
 
 func TestAPI(t *testing.T) {
 	RegisterFailHandler(Fail)
-	junitReporter := reporters.NewJUnitReporter("../reports/junit.xml")
+	junitReporter := reporters.NewJUnitReporter(fmt.Sprintf("../reports/%s_junit.xml", os.Getenv("TEST_NAME")))
 	RunSpecsWithDefaultAndCustomReporters(t, "API Suite", []Reporter{junitReporter})
 
 }
