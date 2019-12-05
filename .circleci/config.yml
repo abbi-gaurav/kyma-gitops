@@ -7,7 +7,7 @@ jobs:
     working_directory: /go/src/github.com/abbi-gaurav/kyma-gitops
     steps:
       - checkout
-      - run: GO111MODULE=on GO_APP_ENV="test" API_URL=$APIURL go test ./smoke_test -v
+      - run: echo $dummy && GO111MODULE=on GO_APP_ENV="test" API_URL=$APIURL go test ./smoke_test -v
 workflows:
   # Name the workflow "welcome"
   test:
