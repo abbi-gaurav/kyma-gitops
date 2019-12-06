@@ -29,6 +29,8 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     --set git.path=cluster-resources \
     --set git.pollInterval=2m \
     --set registry.excludeImage="*" \
+    --set syncGarbageCollection.enabled=true \
+    --set syncGarbageCollection.dry=false \
     --namespace flux \
     fluxcd/flux --tls
     ```
@@ -59,6 +61,8 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     --set git.pollInterval=2m \
     --set registry.excludeImage="*" \
     --set clusterRole.create=false \
+    --set syncGarbageCollection.enabled=true \
+    --set syncGarbageCollection.dry=false \
     --namespace dev \
     fluxcd/flux --tls
     ```
