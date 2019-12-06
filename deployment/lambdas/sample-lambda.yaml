@@ -7,7 +7,6 @@ metadata:
     created-by: kubeless
     function: sample-lambda
   name: sample-lambda
-  namespace: dev
 spec:
   checksum: sha256:720df6193b3e778e2690846dfd56295abd5b418aeaebfc876b94f88aed24ccab
   deployment:
