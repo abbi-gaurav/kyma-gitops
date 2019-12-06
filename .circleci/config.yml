@@ -11,8 +11,10 @@ jobs:
       - store_artifacts:
           path: /tmp/reports
 workflows:
-  # Name the workflow "welcome"
   test:
-    # Run the welcome/run job in its own container
     jobs:
       - test
+          filters:
+            branches:
+              only:
+                - dev
