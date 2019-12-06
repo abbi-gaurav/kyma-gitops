@@ -1,0 +1,10 @@
+apiVersion: gateway.kyma-project.io/v1alpha2
+kind: Api
+metadata:
+  name: sample-lambda-dev
+spec:
+  authentication: []
+  hostname: sample-lambda-dev
+  service:
+    name: sample-lambda
+    port: 8080
