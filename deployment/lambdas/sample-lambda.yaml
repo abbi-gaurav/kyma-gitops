@@ -7,8 +7,9 @@ metadata:
     created-by: kubeless
     function: sample-lambda
   name: sample-lambda
+  namespace: dev
 spec:
-  checksum: sha256:720df6193b3e778e2690846dfd56295abd5b418aeaebfc876b94f88aed24ccab
+  checksum: sha256:fff7fb9ef29649431b79e30d6390010d8fc8caaf4384097d9aa57eff19a60ae2
   deployment:
     metadata:
       creationTimestamp: null
@@ -39,7 +40,7 @@ spec:
   function: |-
     module.exports = {
         main: async function (event, context) {
-            return "hello world";
+            return "Hello World";
         }
     }
   function-content-type: text
