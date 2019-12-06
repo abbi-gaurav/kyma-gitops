@@ -7,9 +7,8 @@ metadata:
     created-by: kubeless
     function: sample-lambda
   name: sample-lambda
-  namespace: dev
 spec:
-  checksum: sha256:fff7fb9ef29649431b79e30d6390010d8fc8caaf4384097d9aa57eff19a60ae2
+  checksum: sha256:ce1cafef8606cfdb54dbfd87e920fd400b245ce82dd4ba072d8b775d5f09a4a5
   deployment:
     metadata:
       creationTimestamp: null
@@ -40,6 +39,7 @@ spec:
   function: |-
     module.exports = {
         main: async function (event, context) {
+            console.log("inside lambda");
             return "Hello World";
         }
     }
