@@ -7,7 +7,7 @@ jobs:
     working_directory: /go/src/github.com/abbi-gaurav/kyma-gitops
     steps:
       - checkout
-      - run: GO111MODULE=on GO_APP_ENV="test" TEST_NAME="Lambda" API_URL=$LAMBDA_API_URL go test ./smoke_test -v
+      - run: GO111MODULE=on GO_APP_ENV="test" go test ./smoke_test -v
       - store_artifacts:
           path: /tmp/reports
 workflows:

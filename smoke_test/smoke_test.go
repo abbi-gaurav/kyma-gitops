@@ -1,7 +1,7 @@
 package smoke_test
 
 import (
-	"fmt"
+	. "github.com/onsi/ginkgo/extensions/table"
 	"github.com/onsi/ginkgo/reporters"
 	"net/http"
 	"os"
@@ -13,29 +13,27 @@ import (
 
 func TestAPI(t *testing.T) {
 	RegisterFailHandler(Fail)
-	junitReporter := reporters.NewJUnitReporter(fmt.Sprintf("/tmp/reports/%s_junit.xml", os.Getenv("TEST_NAME")))
+	junitReporter := reporters.NewJUnitReporter("/tmp/reports/junit.xml")
 	RunSpecsWithDefaultAndCustomReporters(t, "API Suite", []Reporter{junitReporter})
 
 }
 
 var httpClient *http.Client
-var apiURL string
 
 var _ = BeforeSuite(func() {
 	httpClient = &http.Client{}
-	apiURL = os.Getenv("API_URL")
 })
 
-var _ = Describe("My Kyma API test suite", func() {
-	Describe("GET /", func() {
-		Context("When GET method is called", func() {
-			It(fmt.Sprintf("should return [%s]", "hello world"), func() {
-				req, _ := http.NewRequest(http.MethodGet, apiURL, nil)
+var _ = Describe("My Kyma API ",
+	func() {
+		DescribeTable("Test suite",
+			func(url string) {
+				req, _ := http.NewRequest(http.MethodGet, url, nil)
 				resp, err := httpClient.Do(req)
 				Expect(err).Should(BeNil())
 				Expect(resp).ShouldNot(BeNil())
 				Expect(resp.StatusCode).To(Equal(200))
-			})
-		})
+			},
+			Entry("Lambda API URL", os.Getenv("LAMBDA_API_URL")),
+		)
 	})
-})
