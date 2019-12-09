@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/abbi-gaurav/kyma-gitops.svg?style=svg)](https://circleci.com/gh/abbi-gaurav/kyma-gitops)
+[![CircleCI](https://circleci.com/gh/abbi-gaurav/kyma-gitops/tree/dev.svg?style=svg)](https://circleci.com/gh/abbi-gaurav/kyma-gitops/tree/dev)
 
 # Overview
 
@@ -11,6 +11,25 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
 * [Add certificates to Helm Home](https://kyma-project.io/docs/components/security/#details-tls-in-tiller-add-certificates-to-helm-home)
 
 ## Cluster level setup
+
+This *example setup* shows using Kyma with Flux to deploy cluster level as well as a dev namespace. The idea can be extended to multiple namespaces.
+
+**Kyma Cluster Admin Flow**
+
+* Admins will work on the [master branch](https://github.com/abbi-gaurav/kyma-gitops).
+* Push any cluster level changes to master.
+* Flux will pick up the changes and deploy them to cluster.
+
+**Kyma Developer flow**
+
+* Developers will work on the [dev branch](https://github.com/abbi-gaurav/kyma-gitops/tree/dev).
+* Write code and configuratations.
+* Push them to dev branch.
+* Flux will pick up the changes and deploy them to dev namespace.
+
+> Note: This can be extended to multiple namespaces.
+
+![Kyma Flux Flow](assets/Kyma&#32;Flux&#32;flow.png)
 
 * Create `flux` namespace
 
@@ -76,7 +95,6 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
     ```
   
   * In the repository, go to Setting > Deploy keys, click on Add deploy key, give it a Title, check Allow write access, paste the Flux public key and click Add key.
-
 
 ## Various flows
 
