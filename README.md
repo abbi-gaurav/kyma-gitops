@@ -1,5 +1,3 @@
-[![CircleCI](https://circleci.com/gh/abbi-gaurav/kyma-gitops/tree/dev.svg?style=svg)](https://circleci.com/gh/abbi-gaurav/kyma-gitops/tree/dev)
-
 # Overview
 
 Explore Gitops for developers building stuff on [project "kyma"](https://kyma-project.io) using a pull based approach. The approach is based on the [open source project flux](https://www.weave.works/oss/flux/).
@@ -10,51 +8,35 @@ Explore Gitops for developers building stuff on [project "kyma"](https://kyma-pr
 * Install [Helm](https://helm.sh/)
 * [Add certificates to Helm Home](https://kyma-project.io/docs/components/security/#details-tls-in-tiller-add-certificates-to-helm-home)
 
-## Cluster level setup
+## Installing flux
 
-This *example setup* shows using Kyma with Flux to deploy cluster level as well as a dev namespace. The idea can be extended to multiple namespaces.
+Flux will be the component that will run inside Kyma and continuously watch for any changes in the github repository and apply them to the Kyma cluster.
 
-**Kyma Cluster Admin Flow**
+This step will be done by the admin of the Kyma cluster.
 
-* Admins will work on the [master branch](https://github.com/abbi-gaurav/kyma-gitops).
-* Push any cluster level changes to master.
-* Flux will pick up the changes and deploy them to cluster.
+This command will install the flux operator in the `dev namespace` for the github branch `master`. The deployment path specified is directory called `deployment`. You can read more about various configuration options in the [flux documentation](https://github.com/fluxcd/flux/tree/master/chart/flux#configuration).
 
-**Kyma Developer flow**
+Any commits to the master branch in the deployment directory will be applied to the Kyma cluster.
 
-* Developers will work on the [dev branch](https://github.com/abbi-gaurav/kyma-gitops/tree/dev).
-* Write code and configuratations.
-* Push them to dev branch.
-* Flux will pick up the changes and deploy them to dev namespace.
+* Install Flux as a helm chart.
 
-> Note: This can be extended to multiple namespaces.
+```shell
+  helm upgrade -i dev-flux \
+  --set helmOperator.create=false \
+  --set helmOperator.createCRD=false \
+  --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
+  --set git.branch=master \
+  --set git.path=deployment \
+  --set git.pollInterval=2m \
+  --set registry.excludeImage="*" \
+  --set clusterRole.create=false \
+  --set syncGarbageCollection.enabled=true \
+  --set syncGarbageCollection.dry=false \
+  --namespace dev \
+  fluxcd/flux --tls
+```
 
-![Kyma Flux Flow](assets/Kyma&#32;Flux&#32;flow.png)
-
-* Create `flux` namespace
-
-    ```shell
-    kubectl apply -f setup/ns.yaml
-    ```
-
-* Install Flux as a Helm chart for cluster level resources
-
-    ```shell
-    helm repo add fluxcd https://charts.fluxcd.io
-    helm upgrade -i flux \
-    --set helmOperator.create=false \
-    --set helmOperator.createCRD=false \
-    --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
-    --set git.path=cluster-resources \
-    --set git.pollInterval=2m \
-    --set registry.excludeImage="*" \
-    --set syncGarbageCollection.enabled=true \
-    --set syncGarbageCollection.dry=false \
-    --namespace flux \
-    fluxcd/flux --tls
-    ```
-
-* Give write access for repository.
+* Give write access for github repository.
 
   * Run command
   
@@ -62,40 +44,22 @@ This *example setup* shows using Kyma with Flux to deploy cluster level as well 
     fluxctl identity --k8s-fwd-ns=flux
     ```
   
-  * In the repository, go to Setting > Deploy keys, click on Add deploy key, give it a Title, check Allow write access, paste the Flux public key and click Add key.
+  * In the repository, go to `Setting > Deploy keys`
+  * Click on `Add deploy key`, give it a Title, check Allow write access, paste the Flux public key and click Add key.
 
-## Dev branch setup
+## Kyma Developer flow
 
-* Create a `dev` branch from the Kyma console.
+Let's say our devlopment team is working in the dev namespace. This is where all their microservices, lambdas and other resources will be deployed.
 
-* Install Flux as a Helm chart for development resources.
+* Developers will work on the [git hub repository](https://github.com/abbi-gaurav/kyma-gitops.git).
+* Write code and configuratations.
+* Push them to dev branch.
+* Flux will pick up the changes and deploy them to dev namespace.
 
-    ```shell
-    helm upgrade -i dev-flux \
-    --set helmOperator.create=false \
-    --set helmOperator.createCRD=false \
-    --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
-    --set git.branch=dev \
-    --set git.path=deployment \
-    --set git.pollInterval=2m \
-    --set registry.excludeImage="*" \
-    --set clusterRole.create=false \
-    --set syncGarbageCollection.enabled=true \
-    --set syncGarbageCollection.dry=false \
-    --namespace dev \
-    fluxcd/flux --tls
-    ```
+> Note: This can be extended to multiple namespaces.
 
-* Give write access for repository.
+![Kyma Flux Flow](assets/Kyma&#32;Flux&#32;flow&#32;Dev.png)
 
-  * Run command
-  
-    ```shell
-    fluxctl identity --k8s-fwd-ns=dev
-    ```
-  
-  * In the repository, go to Setting > Deploy keys, click on Add deploy key, give it a Title, check Allow write access, paste the Flux public key and click Add key.
-
-## Various flows
+## Examples
 
 * [Lambda deployment](code/lambdas/README.md)
