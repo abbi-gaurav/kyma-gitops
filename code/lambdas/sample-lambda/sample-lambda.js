@@ -1,5 +1,6 @@
 module.exports = {
     main: async function (event, context) {
-        return "hello world";
+        console.log("inside lambda");
+        return "Hello World";
     }
 }
