@@ -22,7 +22,7 @@ push:
 	docker push $(CONTAINER_IMAGE)
 
 create-service:
-	kubectl create deployment $(APP) --image=$(CONTAINER_IMAGE) --dry-run -o yaml > deployment/deployment-ohne-port.yaml
+	kubectl -n $(NAMESPACE) create deployment $(APP) --image=$(CONTAINER_IMAGE) --dry-run -o yaml > deployment/deployment-ohne-port.yaml
 	kubectl patch -f ./deployment/deployment-ohne-port.yaml -p '{"spec": {"template" :{"spec":{"containers":[{"name": "$(APP)", "ports":[{"containerPort": 8080}]}]}}}}' --dry-run  -o yaml > deployment/deployment.yaml
 	kubectl expose -f deployment/deployment.yaml --type=ClusterIP --dry-run -o yaml > deployment/service.yaml
 	rm deployment/deployment-ohne-port.yaml

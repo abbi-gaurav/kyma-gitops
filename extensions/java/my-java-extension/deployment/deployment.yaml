@@ -5,7 +5,7 @@ metadata:
   labels:
     app: my-java-extension
   name: my-java-extension
-  namespace: default
+  namespace: dev
 spec:
   replicas: 1
   selector:
