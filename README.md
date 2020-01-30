@@ -26,8 +26,9 @@ Any commits to the master branch in the deployment directory will be applied to 
   --set helmOperator.createCRD=false \
   --set git.url=git@github.com:abbi-gaurav/kyma-gitops \
   --set git.branch=master \
-  --set git.path=deployment \
+  --set git.path=extensions \
   --set git.pollInterval=2m \
+  --set git.readonly=true \
   --set registry.excludeImage="*" \
   --set clusterRole.create=false \
   --set syncGarbageCollection.enabled=true \
