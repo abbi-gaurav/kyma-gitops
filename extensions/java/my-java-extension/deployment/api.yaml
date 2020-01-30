@@ -1,0 +1,10 @@
+apiVersion: gateway.kyma-project.io/v1alpha2
+kind: Api
+metadata:
+  name: my-java-extension-dev
+spec:
+  authentication: []
+  hostname: my-java-extension-dev
+  service:
+    name: my-java-extension
+    port: 8080

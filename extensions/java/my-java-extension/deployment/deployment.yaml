@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: my-java-extension
+  name: my-java-extension
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-java-extension
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-java-extension
+    spec:
+      containers:
+      - image: gabbi/my-java-extension:0.0.1
+        name: my-java-extension
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
