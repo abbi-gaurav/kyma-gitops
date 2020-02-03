@@ -1,0 +1,10 @@
+apiVersion: gateway.kyma-project.io/v1alpha2
+kind: Api
+metadata:
+  name: my-go-extension-dev
+spec:
+  authentication: []
+  hostname: my-go-extension-dev
+  service:
+    name: my-go-extension
+    port: 8080
