@@ -13,12 +13,12 @@ clean:
 build:
 	./gradlew -Pversion=$(RELEASE) -Pname=$(APP) clean build
 
-build-docker:
+build-image: clean build
 	cp build/libs/$(APP)-$(RELEASE).jar docker
 	docker build -t $(CONTAINER_IMAGE) --no-cache --rm docker
 	rm docker/$(APP)-*.jar
 
-push:
+push-image:
 	docker push $(CONTAINER_IMAGE)
 
 create-service:
