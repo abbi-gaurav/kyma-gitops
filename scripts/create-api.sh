@@ -16,3 +16,5 @@ spec:
     name: ${NAME}
     port: 8080
 EOF
+
+echo "Kyma API will be exposed at https://${NAME}-${NAMESPACE}.<cluster-domain>"
