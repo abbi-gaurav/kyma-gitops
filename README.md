@@ -61,6 +61,9 @@ Let's say our devlopment team is working in the dev namespace. This is where all
 
 ![Kyma Flux Flow](assets/Kyma&#32;Flux&#32;flow&#32;Dev.png)
 
-## Examples
+## GitOps Examples
 
-* [Lambda deployment](code/lambdas/README.md)
+* [Java Microservice](extensions/java/my-java-extension/README.md)
+* [Scala Microservice](extensions/scala/my-scala-extension/README.md)
+* [Go Microservice](extensions/go/my-go-extension/README.md)
+* [Kyma Lambda](extensions/lambdas/sample-lambda/README.md)
